@@ -61,6 +61,19 @@ public class AEXMLElement: Equatable {
     public var boolValue: Bool {
         return stringValue.lowercaseString == "true" || stringValue.toInt() == 1 ? true : false
     }
+    public var escapedStringValue: String {
+        // We need to make sure "&" is escaped first. Not doing this may break escaping the other characters.
+        var escapedString = stringValue.stringByReplacingOccurrencesOfString("&", withString: "&amp;", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+        let escapeChars = ["<" : "&lt;", ">" : "&gt;", "\"" : "&quot;", "'" : "&apos;"]
+
+        // replace the other four special characters
+        for (char, echar) in escapeChars {
+            escapedString = escapedString.stringByReplacingOccurrencesOfString(char, withString: echar, options: NSStringCompareOptions.LiteralSearch, range: nil)
+        }
+
+        return escapedString
+    }
     public var intValue: Int {
         return stringValue.toInt() ?? 0
     }
@@ -213,7 +226,7 @@ public class AEXMLElement: Equatable {
                 xml += "</\(name)>"
             } else {
                 // insert string value and close element
-                xml += ">\(stringValue)</\(name)>"
+                xml += ">\(escapedStringValue)</\(name)>"
             }
         }
         
