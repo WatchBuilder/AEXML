@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FD1FE241B1944C800B20D16 /* Namespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1FE231B1944C800B20D16 /* Namespaces.swift */; };
 		8BE1053419F6A43000716C35 /* example.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE1053319F6A43000716C35 /* example.xml */; };
 		8BFE78AF19F0054100914487 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE78AE19F0054100914487 /* AppDelegate.swift */; };
 		8BFE78B119F0054100914487 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE78B019F0054100914487 /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1FD1FE231B1944C800B20D16 /* Namespaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Namespaces.swift; sourceTree = "<group>"; };
 		8BD7A14319F0093F005F73F4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8BD7A14419F0093F005F73F4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8BDEBA8C1AEC588700A12D92 /* AEXML.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AEXML.podspec; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		8BD5EE981AEC407800A8BB45 /* AEXML */ = {
 			isa = PBXGroup;
 			children = (
+				1FD1FE231B1944C800B20D16 /* Namespaces.swift */,
 				8BFE78CE19F0056D00914487 /* AEXML.swift */,
 			);
 			path = AEXML;
@@ -240,6 +243,7 @@
 				8BFE78B119F0054100914487 /* ViewController.swift in Sources */,
 				8BFE78CF19F0056D00914487 /* AEXML.swift in Sources */,
 				8BFE78AF19F0054100914487 /* AppDelegate.swift in Sources */,
+				1FD1FE241B1944C800B20D16 /* Namespaces.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
