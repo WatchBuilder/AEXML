@@ -12,7 +12,17 @@ public extension AEXMLElement {
     // XMLNamespaceURLsByPrefix, defaultXMLNamespaceURL, getXMLNamespacePrefixForURL(),
     // and getXMLNamespaceURLForPrefix() all call the same method on their parent,
     // if any, before returning nil.
-    
+
+	public var localName: String {
+		get {
+			let parts = name.componentsSeparatedByString(":")
+			assert(parts.count == 1 || parts.count == 2, "Malformed XML tag")
+
+			if parts.count == 1 { return name }
+			return parts[1];
+		}
+	}
+
     public var XMLNamespaceURLsByPrefix: [String: String] {
         get {
             var retval = [String: String]()
@@ -33,6 +43,20 @@ public extension AEXMLElement {
             return retval
         }
     }
+
+	public var elementXMLNamespaceURL: String? {
+		get {
+			let parts = name.componentsSeparatedByString(":")
+
+			if parts.count == 1 {
+				return defaultXMLNamespaceURL
+			} else if parts.count == 2 {
+				return getXMLNamespaceURLForPrefix(parts[0])
+			} else {
+				fatalError("Malformed XML tag name")
+			}
+		}
+	}
     
     public var defaultXMLNamespaceURL: String? {
         get {
