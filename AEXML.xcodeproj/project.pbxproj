@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F2E82731D0E104B0009C522 /* Namespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1FE231B1944C800B20D16 /* Namespaces.swift */; };
+		1F2E82741D0E104B0009C522 /* AEXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE78CE19F0056D00914487 /* AEXML.swift */; };
 		1FFB14971D0E0CFD00F6817E /* AEXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FFB14961D0E0CFD00F6817E /* AEXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -143,6 +145,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2E82731D0E104B0009C522 /* Namespaces.swift in Sources */,
+				1F2E82741D0E104B0009C522 /* AEXML.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +298,7 @@
 				1FFB149B1D0E0CFD00F6817E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8BFE78A419F0054100914487 /* Build configuration list for PBXProject "AEXML" */ = {
 			isa = XCConfigurationList;
