@@ -9,8 +9,8 @@
 import Foundation
 
 public extension AEXMLElement {
-    // XMLNamespaceURLsByPrefix, defaultXMLNamespaceURL, getXMLNamespacePrefix(forURL:),
-    // and getXMLNamespaceURL(forPrefix:) all call the same method on their parent,
+    // XMLNamespaceURLsByPrefix, defaultXMLNamespaceURL, getXMLNamespacePrefixForURL(),
+    // and getXMLNamespaceURLForPrefix() all call the same method on their parent,
     // if any, before returning nil.
     
     public var XMLNamespaceURLsByPrefix: [String: String] {
@@ -52,21 +52,21 @@ public extension AEXMLElement {
         }
     }
     
-    public func getXMLNamespacePrefix(forURL URL: String) -> String? {
+    public func getXMLNamespacePrefixForURL(URL: String) -> String? {
         for (key, value) in XMLNamespaceURLsByPrefix {
             if value == URL {
                 return key
             }
         }
         
-        return parent?.getXMLNamespacePrefix(forURL: URL)
+        return parent?.getXMLNamespacePrefixForURL(URL)
     }
     
-    public func getXMLNamespaceURL(forPrefix prefix: String) -> String? {
+    public func getXMLNamespaceURLForPrefix(prefix: String) -> String? {
         if let URL = XMLNamespaceURLsByPrefix[prefix] {
             return URL
         } else {
-            return parent?.getXMLNamespaceURL(forPrefix: prefix)
+            return parent?.getXMLNamespaceURLForPrefix(prefix)
         }
     }
     
