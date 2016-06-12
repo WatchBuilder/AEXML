@@ -21,7 +21,7 @@ public extension AEXMLElement {
                 let prefix = "xmlns:"
                 let stringKey = key as! String
                 if stringKey.hasPrefix(prefix) {
-                    let trimmedKey = stringKey.substringFromIndex(advance(stringKey.startIndex, (prefix as NSString).length))
+                    let trimmedKey = stringKey.substringFromIndex(stringKey.startIndex.advancedBy((prefix as NSString).length))
                     retval[trimmedKey] = value as? String
                 }
             }
@@ -70,25 +70,25 @@ public extension AEXMLElement {
         }
     }
     
-    public func setXMLNamespace(#prefix: String, URL: String) {
+    public func setXMLNamespace(prefix prefix: String, URL: String) {
         attributes["xmlns:\(prefix)"] = URL
     }
     
-    public func clearXMLNamespaceMapping(#prefix: String) {
+    public func clearXMLNamespaceMapping(prefix prefix: String) {
         attributes.removeValueForKey("xmlns:\(prefix)")
     }
     
-    public func containsXMLNamespaceMapping(#prefix: String) -> Bool {
+    public func containsXMLNamespaceMapping(prefix prefix: String) -> Bool {
         if prefix == "" { return defaultXMLNamespaceURL != nil }
-        return contains(XMLNamespaceURLsByPrefix.keys, prefix)
+        return XMLNamespaceURLsByPrefix.keys.contains(prefix)
     }
     
-    public func containsXMLNamespaceMapping(#namespaceURL: String) -> Bool {
+    public func containsXMLNamespaceMapping(namespaceURL namespaceURL: String) -> Bool {
         if namespaceURL == defaultXMLNamespaceURL { return true }
-        return contains(XMLNamespaceURLsByPrefix.values, namespaceURL)
+        return XMLNamespaceURLsByPrefix.values.contains(namespaceURL)
     }
     
-    public func child(#elementName: String, namespaceURL: String) -> AEXMLElement? {
+    public func child(elementName elementName: String, namespaceURL: String) -> AEXMLElement? {
         if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
             if defaultXMLNamespaceURL == namespaceURL {
                 for child in children {
@@ -113,7 +113,7 @@ public extension AEXMLElement {
         return nil
     }
     
-    public func attribute(#name: String, namespaceURL: String) -> String? {
+    public func attribute(name name: String, namespaceURL: String) -> String? {
         if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
             if defaultXMLNamespaceURL == namespaceURL {
                 return attributes[name] as? String
@@ -134,7 +134,7 @@ public extension AEXMLElement {
         return nil
     }
     
-    public func setAttribute(#name: String, namespaceURL: String, value: String) {
+    public func setAttribute(name name: String, namespaceURL: String, value: String) {
         if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
             if defaultXMLNamespaceURL == namespaceURL {
                 attributes[name] = value
@@ -151,14 +151,14 @@ public extension AEXMLElement {
         // In this case, create one using an automatically generated name.
         var index = 0
         while containsXMLNamespaceMapping(prefix: "ns\(index)") {
-            index++
+            index += 1
         }
         
         setXMLNamespace(prefix: "ns\(index)", URL: namespaceURL)
         return attributes["ns\(index):\(name)"] = value
     }
     
-    public func addChild(#name: String, namespaceURL: String, value: String? = nil, attributes: [NSObject : AnyObject] = [NSObject : AnyObject]()) -> AEXMLElement {
+    public func addChild(name name: String, namespaceURL: String, value: String? = nil, attributes: [NSObject : AnyObject] = [NSObject : AnyObject]()) -> AEXMLElement {
         if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
             if defaultXMLNamespaceURL == namespaceURL {
                 return addChild(name: name, value: value, attributes: attributes)
@@ -175,7 +175,7 @@ public extension AEXMLElement {
         // In this case, create one using an automatically generated name.
         var index = 0
         while containsXMLNamespaceMapping(prefix: "ns\(index)") {
-            index++
+            index += 1
         }
         
         setXMLNamespace(prefix: "ns\(index)", URL: namespaceURL)
