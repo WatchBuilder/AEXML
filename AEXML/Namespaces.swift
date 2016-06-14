@@ -205,4 +205,9 @@ public extension AEXMLElement {
 		setXMLNamespace(prefix: "ns\(index)", URL: namespaceURL)
 		return addChild(name: "ns\(index):\(name)", value: value, attributes: attributes)
 	}
+
+	public convenience init(name: String, namespaceURL: String, relativeToElement parent: AEXMLElement) {
+		let prefix = parent.getXMLNamespacePrefixForURL(namespaceURL)
+		self.init("\(prefix):\(name)")
+	}
 }
