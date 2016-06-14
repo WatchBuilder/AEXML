@@ -208,6 +208,13 @@ public extension AEXMLElement {
 
 	public convenience init(name: String, namespaceURL: String, relativeToElement parent: AEXMLElement) {
 		let prefix = parent.getXMLNamespacePrefixForURL(namespaceURL)
-		self.init("\(prefix):\(name)")
+		if let prefix = prefix {
+			self.init("\(prefix):\(name)")
+		} else {
+			var index = 0
+			while parent.containsXMLNamespaceMapping(prefix: "ns\(index)") { index += 1 }
+			self.init("ns\(index):\(name)")
+			setXMLNamespace(prefix: "ns\(index)", URL: namespaceURL)
+		}
 	}
 }
