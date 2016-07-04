@@ -15,7 +15,7 @@ public extension AEXMLElement {
 
 	public var localName: String {
 		get {
-			let parts = name.componentsSeparatedByString(":")
+			let parts = name.components(separatedBy: ":")
 			assert(parts.count == 1 || parts.count == 2, "Malformed XML tag")
 
 			if parts.count == 1 { return name }
@@ -31,7 +31,7 @@ public extension AEXMLElement {
 				let prefix = "xmlns:"
 				let stringKey = key as! String
 				if stringKey.hasPrefix(prefix) {
-					let trimmedKey = stringKey.substringFromIndex(stringKey.startIndex.advancedBy((prefix as NSString).length))
+					let trimmedKey = stringKey.substring(from: stringKey.characters.index(stringKey.startIndex, offsetBy: (prefix as NSString).length))
 					retval[trimmedKey] = value as? String
 				}
 			}
@@ -46,7 +46,7 @@ public extension AEXMLElement {
 
 	public var elementXMLNamespaceURL: String? {
 		get {
-			let parts = name.componentsSeparatedByString(":")
+			let parts = name.components(separatedBy: ":")
 
 			if parts.count == 1 {
 				return defaultXMLNamespaceURL
@@ -71,12 +71,12 @@ public extension AEXMLElement {
 			if let newValue = newValue {
 				attributes["xmlns"] = newValue as NSString
 			} else {
-				attributes.removeValueForKey("xmlns")
+				attributes.removeValue(forKey: "xmlns")
 			}
 		}
 	}
 
-	public func getXMLNamespacePrefixForURL(URL: String) -> String? {
+	public func getXMLNamespacePrefixForURL(_ URL: String) -> String? {
 		for (key, value) in XMLNamespaceURLsByPrefix {
 			if value == URL {
 				return key
@@ -86,7 +86,7 @@ public extension AEXMLElement {
 		return parent?.getXMLNamespacePrefixForURL(URL)
 	}
 
-	public func getXMLNamespaceURLForPrefix(prefix: String) -> String? {
+	public func getXMLNamespaceURLForPrefix(_ prefix: String) -> String? {
 		if let URL = XMLNamespaceURLsByPrefix[prefix] {
 			return URL
 		} else {
@@ -94,25 +94,25 @@ public extension AEXMLElement {
 		}
 	}
 
-	public func setXMLNamespace(prefix prefix: String, URL: String) {
+	public func setXMLNamespace(prefix: String, URL: String) {
 		attributes["xmlns:\(prefix)"] = URL
 	}
 
-	public func clearXMLNamespaceMapping(prefix prefix: String) {
-		attributes.removeValueForKey("xmlns:\(prefix)")
+	public func clearXMLNamespaceMapping(prefix: String) {
+		attributes.removeValue(forKey: "xmlns:\(prefix)")
 	}
 
-	public func containsXMLNamespaceMapping(prefix prefix: String) -> Bool {
+	public func containsXMLNamespaceMapping(prefix: String) -> Bool {
 		if prefix == "" { return defaultXMLNamespaceURL != nil }
 		return XMLNamespaceURLsByPrefix.keys.contains(prefix)
 	}
 
-	public func containsXMLNamespaceMapping(namespaceURL namespaceURL: String) -> Bool {
+	public func containsXMLNamespaceMapping(namespaceURL: String) -> Bool {
 		if namespaceURL == defaultXMLNamespaceURL { return true }
 		return XMLNamespaceURLsByPrefix.values.contains(namespaceURL)
 	}
 
-	public func child(elementName elementName: String, namespaceURL: String) -> AEXMLElement? {
+	public func child(elementName: String, namespaceURL: String) -> AEXMLElement? {
 		if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
 			if defaultXMLNamespaceURL == namespaceURL {
 				for child in children {
@@ -137,7 +137,7 @@ public extension AEXMLElement {
 		return nil
 	}
 
-	public func attribute(name name: String, namespaceURL: String) -> String? {
+	public func attribute(name: String, namespaceURL: String) -> String? {
 		if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
 			if defaultXMLNamespaceURL == namespaceURL {
 				return attributes[name] as? String
@@ -158,7 +158,7 @@ public extension AEXMLElement {
 		return nil
 	}
 
-	public func setAttribute(name name: String, namespaceURL: String, value: String) {
+	public func setAttribute(name: String, namespaceURL: String, value: String) {
 		if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
 			if defaultXMLNamespaceURL == namespaceURL {
 				attributes[name] = value
@@ -182,7 +182,7 @@ public extension AEXMLElement {
 		return attributes["ns\(index):\(name)"] = value
 	}
 
-	public func addChild(name name: String, namespaceURL: String, value: String? = nil, attributes: [NSObject : AnyObject] = [NSObject : AnyObject]()) -> AEXMLElement {
+	public func addChild(name: String, namespaceURL: String, value: String? = nil, attributes: [NSObject : AnyObject] = [NSObject : AnyObject]()) -> AEXMLElement {
 		if let defaultXMLNamespaceURL = defaultXMLNamespaceURL {
 			if defaultXMLNamespaceURL == namespaceURL {
 				return addChild(name: name, value: value, attributes: attributes)
