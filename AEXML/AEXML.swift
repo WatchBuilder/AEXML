@@ -63,13 +63,13 @@ public class AEXMLElement: Equatable {
 	}
 	public var escapedStringValue: String {
 		// We need to make sure "&" is escaped first. Not doing this may break escaping the other characters.
-		var escapedString = stringValue.replacingOccurrences(of: "&", with: "&amp;", options: NSString.CompareOptions.literalSearch, range: nil)
+		var escapedString = stringValue.replacingOccurrences(of: "&", with: "&amp;", options: NSString.CompareOptions.literal, range: nil)
 
 		let escapeChars = ["<" : "&lt;", ">" : "&gt;", "\"" : "&quot;", "'" : "&apos;"]
 
 		// replace the other four special characters
 		for (char, echar) in escapeChars {
-			escapedString = escapedString.replacingOccurrences(of: char, with: echar, options: NSString.CompareOptions.literalSearch, range: nil)
+			escapedString = escapedString.replacingOccurrences(of: char, with: echar, options: NSString.CompareOptions.literal, range: nil)
 		}
 
 		return escapedString
